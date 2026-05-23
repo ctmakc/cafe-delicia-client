@@ -1595,10 +1595,10 @@ const AccountDrawer = ({ open, onClose, user, setUser }) => {
                 <input className="input" type="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} placeholder="email@example.com" required />
               </div>
               <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
-                {mode === 'signin' ? 'Send magic link' : 'Create account & send link'} <Icon.ArrowR />
+                {mode === 'signin' ? 'Continue with email' : 'Create account'} <Icon.ArrowR />
               </button>
               <p style={{ fontSize: 11.5, color: 'var(--muted)', lineHeight: 1.6, marginTop: 4 }}>
-                We never set passwords — we email a one-tap sign-in link. {mode === 'signup' && 'By signing up you’ll get our monthly Letters from Delicia.'} See our <a href="#" style={{ borderBottom: '1px solid currentColor' }}>privacy notice</a>.
+                We never set passwords for preview accounts. {mode === 'signup' && 'By signing up you’ll get our monthly Letters from Delicia.'} See our <a href="#" style={{ borderBottom: '1px solid currentColor' }}>privacy notice</a>.
               </p>
               {authError && <p style={{ fontSize: 12, color: '#9b3d2f', lineHeight: 1.5 }}>{authError}</p>}
             </form>

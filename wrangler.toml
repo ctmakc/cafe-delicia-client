@@ -1,0 +1,7 @@
+name = "cafe-delicia"
+compatibility_date = "2026-05-23"
+pages_build_output_dir = "dist"
+
+[[kv_namespaces]]
+binding = "SUBMISSIONS_KV"
+id = "1c9ccbe3be8e451da5e843f707d780aa"

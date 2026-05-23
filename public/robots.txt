@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://cafe-delicia.pages.dev/sitemap.xml

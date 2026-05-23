@@ -1020,6 +1020,7 @@ const Icon = {
   Clock: (p) => <svg width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.4" fill="none" {...p}><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>,
   Phone: (p) => <svg width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.4" fill="none" {...p}><path d="M5 4h4l2 5-2 1a11 11 0 0 0 5 5l1-2 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>,
   Mail: (p) => <svg width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.4" fill="none" {...p}><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 7l9 7 9-7"/></svg>,
+  Alert: (p) => <svg width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" fill="none" {...p}><circle cx="12" cy="12" r="9"/><path d="M12 7v6"/><path d="M12 17h.01"/></svg>,
   Insta: (p) => <svg width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.4" fill="none" {...p}><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg>,
   TikTok: (p) => <svg width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.4" fill="none" {...p}><path d="M14 4v10.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 4a5 5 0 0 0 5 5"/></svg>,
   Menu: (p) => <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.4" fill="none" {...p}><path d="M4 8h16M4 16h16"/></svg>,
@@ -6271,7 +6272,10 @@ const BugReport = () => {
 
   return (
     <div className="bug-wrap">
-      <button className="bug-pill" onClick={() => setOpen(true)} aria-label="Report a bug">Report a bug</button>
+      <button className="bug-pill" onClick={() => setOpen(true)} aria-label="Report a bug">
+        <Icon.Alert />
+        <span>Report a bug</span>
+      </button>
       {open && (
         <>
           <button className="bug-scrim" onClick={() => setOpen(false)} aria-label="Close bug report" />
@@ -6301,7 +6305,12 @@ const BugReport = () => {
         </>
       )}
       <style>{`
-        .bug-wrap { position: fixed; right: 18px; bottom: 18px; z-index: 70; }
+        .bug-wrap {
+          position: fixed;
+          right: max(18px, calc(100vw - 100dvw + 18px));
+          bottom: 18px;
+          z-index: 70;
+        }
         .bug-pill {
           padding: 9px 13px;
           border-radius: 999px;
@@ -6313,11 +6322,17 @@ const BugReport = () => {
           letter-spacing: .16em;
           text-transform: uppercase;
           backdrop-filter: blur(12px);
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
         }
         .bug-pill:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
         .bug-scrim { position: fixed; inset: 0; z-index: 69; background: rgba(42,34,24,.18); cursor: default; }
         .bug-box {
-          position: fixed; right: 18px; bottom: 64px; z-index: 71;
+          position: fixed;
+          right: max(18px, calc(100vw - 100dvw + 18px));
+          bottom: 64px;
+          z-index: 71;
           width: min(360px, calc(100vw - 36px));
           background: var(--paper);
           border: 1px solid var(--rule);
@@ -6333,7 +6348,28 @@ const BugReport = () => {
         .bug-sent { padding: 10px 0 4px; }
         .bug-sent .serif-i { display: block; color: var(--olive); font-size: 58px; line-height: 1; }
         .bug-sent p { margin: 6px 0 16px; color: var(--muted); }
-        @media (max-width: 760px) { .bug-wrap { right: 14px; bottom: 78px; } .bug-box { right: 14px; bottom: 124px; } }
+        @media (max-width: 760px) {
+          .bug-wrap {
+            right: max(14px, calc(100vw - 100dvw + 14px));
+            bottom: calc(82px + env(safe-area-inset-bottom));
+          }
+          .bug-pill {
+            width: 42px;
+            height: 42px;
+            padding: 0;
+            justify-content: center;
+            background: rgba(251,247,238,.92);
+          }
+          .bug-pill span { display: none; }
+          .bug-pill svg { width: 16px; height: 16px; }
+          .bug-box {
+            right: max(14px, calc(100vw - 100dvw + 14px));
+            bottom: calc(128px + env(safe-area-inset-bottom));
+            width: min(348px, calc(100dvw - 28px));
+            max-height: calc(100dvh - 152px - env(safe-area-inset-bottom));
+            overflow-y: auto;
+          }
+        }
       `}</style>
     </div>
   );
@@ -6377,7 +6413,11 @@ const MobileBottomBar = ({ route, setRoute, onOpenCart, cartCount }) => (
     <style>{`
       .mb-bar {
         display: none;
-        position: fixed; left: 12px; right: 12px; bottom: 12px;
+        position: fixed;
+        left: 12px;
+        right: auto;
+        bottom: calc(12px + env(safe-area-inset-bottom));
+        width: calc(100dvw - 24px);
         z-index: 60;
         background: var(--ink); color: var(--paper);
         border-radius: 999px;

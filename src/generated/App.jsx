@@ -6130,6 +6130,7 @@ const App = () => {
       <AccountDrawer open={accountOpen} onClose={() => setAccountOpen(false)} user={user} setUser={setUser} />
       <MobileBottomBar route={route} setRoute={setRoute} onOpenCart={() => setCartOpen(true)} cartCount={cartCount} />
       <CartToast toast={toast} onOpen={() => { setToast(null); setCartOpen(true); }} />
+      <BugReport />
 
       <TweaksPanel title="Tweaks">
         <TweakSection title="Palette">
@@ -6232,6 +6233,111 @@ const CartToast = ({ toast, onOpen }) => (
     `}</style>
   </div>
 );
+
+/* ============================================================
+   Bug report — tiny client feedback button
+   ============================================================ */
+const BugReport = () => {
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState('');
+  const [contact, setContact] = useState('');
+  const [status, setStatus] = useState('idle');
+  const [error, setError] = useState('');
+
+  const submit = async (e) => {
+    e.preventDefault();
+    if (!message.trim()) {
+      setError('Tell us what went wrong.');
+      return;
+    }
+    setStatus('sending');
+    setError('');
+    try {
+      await apiPost('/api/submissions', {
+        type: 'bug',
+        message,
+        contact,
+        page: location.href,
+        userAgent: navigator.userAgent,
+      });
+      setStatus('sent');
+      setMessage('');
+      setContact('');
+    } catch (err) {
+      setError(err.message || 'Could not send the report.');
+      setStatus('idle');
+    }
+  };
+
+  return (
+    <div className="bug-wrap">
+      <button className="bug-pill" onClick={() => setOpen(true)} aria-label="Report a bug">Report a bug</button>
+      {open && (
+        <>
+          <button className="bug-scrim" onClick={() => setOpen(false)} aria-label="Close bug report" />
+          <form className="bug-box" onSubmit={submit}>
+            <div className="bug-head">
+              <div>
+                <span className="num">Site feedback</span>
+                <h3 className="serif">Report a bug</h3>
+              </div>
+              <button type="button" className="cart-x" onClick={() => setOpen(false)}><Icon.Close /></button>
+            </div>
+            {status === 'sent' ? (
+              <div className="bug-sent">
+                <span className="serif-i">✓</span>
+                <p>Thanks, we got it.</p>
+                <button type="button" className="btn btn-ghost" onClick={() => { setStatus('idle'); setOpen(false); }}>Close</button>
+              </div>
+            ) : (
+              <>
+                <textarea className="textarea" rows="4" value={message} onChange={e => setMessage(e.target.value)} placeholder="What broke or looked wrong?" />
+                <input className="input" value={contact} onChange={e => setContact(e.target.value)} placeholder="Email, optional" />
+                {error && <p className="bug-error">{error}</p>}
+                <button className="btn btn-primary" type="submit" disabled={status === 'sending'}>{status === 'sending' ? 'Sending...' : 'Send report'}</button>
+              </>
+            )}
+          </form>
+        </>
+      )}
+      <style>{`
+        .bug-wrap { position: fixed; right: 18px; bottom: 18px; z-index: 70; }
+        .bug-pill {
+          padding: 9px 13px;
+          border-radius: 999px;
+          background: rgba(251,247,238,.86);
+          color: var(--ink);
+          border: 1px solid var(--rule-strong);
+          box-shadow: 0 12px 28px -20px rgba(42,34,24,.45);
+          font-size: 10.5px;
+          letter-spacing: .16em;
+          text-transform: uppercase;
+          backdrop-filter: blur(12px);
+        }
+        .bug-pill:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+        .bug-scrim { position: fixed; inset: 0; z-index: 69; background: rgba(42,34,24,.18); cursor: default; }
+        .bug-box {
+          position: fixed; right: 18px; bottom: 64px; z-index: 71;
+          width: min(360px, calc(100vw - 36px));
+          background: var(--paper);
+          border: 1px solid var(--rule);
+          box-shadow: var(--shadow);
+          padding: 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+        .bug-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+        .bug-head h3 { font-size: 28px; line-height: 1; margin-top: 4px; }
+        .bug-error { color: #9b3d2f; font-size: 12px; }
+        .bug-sent { padding: 10px 0 4px; }
+        .bug-sent .serif-i { display: block; color: var(--olive); font-size: 58px; line-height: 1; }
+        .bug-sent p { margin: 6px 0 16px; color: var(--muted); }
+        @media (max-width: 760px) { .bug-wrap { right: 14px; bottom: 78px; } .bug-box { right: 14px; bottom: 124px; } }
+      `}</style>
+    </div>
+  );
+};
 
 /* ============================================================
    404 page

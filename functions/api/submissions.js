@@ -50,7 +50,7 @@ export async function onRequestPost({ request, env }) {
   }
 
   const type = clean(body.type, 40);
-  if (!['contact', 'quick-contact', 'newsletter', 'order'].includes(type)) {
+  if (!['contact', 'quick-contact', 'newsletter', 'order', 'bug'].includes(type)) {
     return json({ ok: false, error: 'Unsupported submission type.' }, { status: 400 });
   }
 
@@ -92,6 +92,16 @@ export async function onRequestPost({ request, env }) {
       subtotal: Number(body.subtotal || 0),
       tax: Number(body.tax || 0),
       total: Number(body.total || 0),
+    });
+  } else if (type === 'bug') {
+    if (!clean(body.message).length) {
+      return json({ ok: false, error: 'Tell us what went wrong.' }, { status: 400 });
+    }
+    Object.assign(submission, {
+      page: clean(body.page, 500),
+      contact: clean(body.contact, 160),
+      message: clean(body.message, 2000),
+      userAgent: clean(body.userAgent, 500),
     });
   } else {
     if (!clean(body.name) || !clean(body.contact) || clean(body.message).length < 6) {

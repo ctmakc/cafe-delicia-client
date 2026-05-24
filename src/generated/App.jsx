@@ -20,33 +20,39 @@ const money = (value) => Number(value || 0).toFixed(2);
 /* Menu data — full catalogue */
 const DELICIA_DATA = (function () {
   const u = (id, w = 1200) =>
-    `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`;
+    id.startsWith('http') ? id : `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`;
 
-  // Diversified imagery — varied Unsplash IDs so the catalogue doesn't feel repetitive.
+  // Product-matched imagery. Keep separate keys for items whose names imply a
+  // very specific look, so the menu never shows a random generic dessert.
   const POOL = {
-    napoleon:   '1565958011703-44f9829ba187',
-    medovik:    '1578985545062-69928b1d9587',
-    spartak:    '1606313564200-e75d5e30476c',
-    kyiv:       '1486427944299-d1955d23e34d',
-    esterhazy:  '1535141192574-5d4897c12636',
+    napoleon:   '1651484396889-5de94b4d2a8b',
+    medovik:    '1624000961428-eeece184988b',
+    spartak:    '1750677919778-1c4733976909',
+    kyiv:       'https://upload.wikimedia.org/wikipedia/commons/6/69/Kiev_cake_slice.JPG',
+    esterhazy:  'https://upload.wikimedia.org/wikipedia/commons/7/72/Eszterhazy-Torte_01.JPG',
     sponge:     '1551404973-761c83cd8339',
-    pavlova:    '1488477181946-6428a0291777',
-    eclair:     '1551024601-bec78aea704b',
-    cheesecake: '1567206563064-6f60f40a2b57',
-    tiramisu:   '1571877227200-a0d98ea607e9',
-    cookies:    '1499636136210-6f4ee915583e',
-    macaron:    '1569864358642-9d1684040f43',
-    shortbread: '1497034825429-c343d7c6a68f',
-    crescent:   '1517686469429-8bdb88b9f907',
-    icecream:   '1567206563064-6f60f40a2b57',
-    espresso:   '1510707577719-ae7c14805e3a',
+    pavlova:    '1634324040880-63dbf9a4e5ac',
+    pavlovaMini:'1702744754798-4a1d980b03e2',
+    eclair:     '1613992281296-b48e3d37876b',
+    cheesecake: '1676300185983-d5f242babe34',
+    sernyk:     '1708175313856-8573b2bf8a3a',
+    tiramisu:   '1639744211487-b27e3551b07c',
+    linzer:     'https://images.pexels.com/photos/30181076/pexels-photo-30181076.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    macaron:    '1531594652722-292a43e752b4',
+    shortbread: '1630782622114-613e6e9c5dc6',
+    crescent:   '1766186930324-187ef2f45d47',
+    gelatoVanilla: '1560008581-09826d1de69e',
+    gelatoPistachio: '1567206563064-6f60f40a2b57',
+    gelatoCaramel: '1562790879-dfde82829db0',
+    gelatoBerry: '1650553448920-9432f8086905',
+    espresso:   '1559496417-e7f25cb247f3',
     cappuccino: '1509042239860-f550ce710b93',
     latte:      '1572442388796-11668a67e53d',
     flatwhite:  '1485808191679-5f86510681a2',
-    chocolate:  '1517578239113-b03992dcdd25',
+    chocolate:  '1637572815755-c4b80092dce1',
     tea:        '1556679343-c7306c1976bc',
-    pumpkin:    '1606313564200-e75d5e30476c',
-    berrytart:  '1488477181946-6428a0291777',
+    pumpkin:    '1713274786966-628fed3e41b0',
+    berrytart:  '1653491887846-781545ef38da',
   };
 
   const items = [
@@ -177,7 +183,7 @@ const DELICIA_DATA = (function () {
       tagline: 'Meringue · cream · fruit',
       desc: 'Single-serve pavlova with whipped Chantilly and the morning’s fruit. Light, never cloying.',
       price: 7.0, unit: 'each',
-      img: u(POOL.pavlova),
+      img: u(POOL.pavlovaMini),
       badges: ['Seasonal'],
       allergens: 'Dairy, eggs.',
     },
@@ -188,7 +194,7 @@ const DELICIA_DATA = (function () {
       tagline: 'Ukrainian curd cake · raisin',
       desc: 'Tvorog-based cheesecake, baked low and slow until the top sets to a pale gold. A taste from grandmothers’ kitchens.',
       price: 7.5, unit: 'slice',
-      img: u(POOL.cheesecake),
+      img: u(POOL.sernyk),
       badges: ['Signature'],
       allergens: 'Wheat, dairy, eggs.',
     },
@@ -201,7 +207,7 @@ const DELICIA_DATA = (function () {
       tagline: 'Hazelnut · raspberry',
       desc: 'Toasted-hazelnut shortbread with house raspberry preserve and a hush of icing sugar.',
       price: 4.5, unit: 'each',
-      img: u(POOL.cookies),
+      img: u(POOL.linzer),
       badges: [],
       allergens: 'Wheat, dairy, hazelnut.',
     },
@@ -247,7 +253,7 @@ const DELICIA_DATA = (function () {
       tagline: 'Madagascar vanilla · cream base',
       desc: 'Slow-churned gelato made from cream and split Madagascar pods. Two scoops in a porcelain cup.',
       price: 6.5, unit: 'two scoops',
-      img: u(POOL.icecream),
+      img: u(POOL.gelatoVanilla),
       badges: [],
       allergens: 'Dairy.',
     },
@@ -258,7 +264,7 @@ const DELICIA_DATA = (function () {
       tagline: 'Bronte pistachio',
       desc: 'Sicilian Bronte pistachios, ground in-house, folded into a silken gelato base.',
       price: 7.5, unit: 'two scoops',
-      img: u(POOL.icecream),
+      img: u(POOL.gelatoPistachio),
       badges: ['Signature'],
       allergens: 'Dairy, pistachio.',
     },
@@ -269,7 +275,7 @@ const DELICIA_DATA = (function () {
       tagline: 'Burnt caramel · Maldon',
       desc: 'Caramelised sugar pushed to the edge of bitter, set with cream and finished with a pinch of Maldon flakes.',
       price: 7.0, unit: 'two scoops',
-      img: u(POOL.icecream),
+      img: u(POOL.gelatoCaramel),
       badges: ['Popular'],
       allergens: 'Dairy.',
     },
@@ -280,7 +286,7 @@ const DELICIA_DATA = (function () {
       tagline: 'Dairy-free · seasonal',
       desc: 'Sorbet of wild berries pressed through a fine sieve — bright, clean, dairy-free.',
       price: 6.5, unit: 'two scoops',
-      img: u(POOL.icecream),
+      img: u(POOL.gelatoBerry),
       badges: ['Seasonal'],
       allergens: 'None of the eight common allergens.',
     },
@@ -5147,7 +5153,7 @@ const MenuPage = ({ setRoute, addToCart, openProduct, initialCat, tweaks }) => {
         <div className="shell">
           <div className="cow-grid">
             <div className="cow-img">
-              <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1200&q=85" alt="Cake of the week" />
+              <img src={DELICIA_DATA.byId('pumpkin').img} alt="Pumpkin Honey Cake" />
               <span className="cow-tag">
                 <span className="num">This week</span>
                 <span className="serif-i" style={{ fontSize: 22 }}>Pumpkin Medovik</span>

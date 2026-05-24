@@ -35,7 +35,7 @@ const DELICIA_DATA = (function () {
     pavlovaMini:'1702744754798-4a1d980b03e2',
     eclair:     '1613992281296-b48e3d37876b',
     cheesecake: '1676300185983-d5f242babe34',
-    sernyk:     '1708175313856-8573b2bf8a3a',
+    syrnyk:     '1708175313856-8573b2bf8a3a',
     tiramisu:   '1639744211487-b27e3551b07c',
     linzer:     'https://images.pexels.com/photos/30181076/pexels-photo-30181076.jpeg?auto=compress&cs=tinysrgb&w=1200',
     macaron:    '1531594652722-292a43e752b4',
@@ -188,13 +188,13 @@ const DELICIA_DATA = (function () {
       allergens: 'Dairy, eggs.',
     },
     {
-      id: 'sernyk',
+      id: 'syrnyk',
       cat: 'desserts',
-      name: 'Sernyk',
+      name: 'Syrnyk',
       tagline: 'Ukrainian curd cake · raisin',
       desc: 'Tvorog-based cheesecake, baked low and slow until the top sets to a pale gold. A taste from grandmothers’ kitchens.',
       price: 7.5, unit: 'slice',
-      img: u(POOL.sernyk),
+      img: u(POOL.syrnyk),
       badges: ['Signature'],
       allergens: 'Wheat, dairy, eggs.',
     },
@@ -2846,8 +2846,8 @@ const AboutHeritagePage = ({ setRoute }) => (
           {
             place: 'Lviv', sub: 'Western Ukraine',
             era: '17th century onward',
-            cakes: ['Medovik · honey cake', 'Sernyk · curd cake', 'Kyiv cake', 'Pavlova (Soviet-era variation)'],
-            body: 'The cakes we ate growing up. Medovik comes from the layered “medivnyk” tradition of Western Ukrainian baking, perfected in Lviv’s patisserie schools during the late Habsburg period. Sernyk is the home version — what every Sunday tasted like at Olena’s grandmother’s table. Kyiv cake is the youngest of the lot, born in 1956 in a Soviet confectionery factory.',
+            cakes: ['Medovik · honey cake', 'Syrnyk · curd cake', 'Kyiv cake', 'Pavlova (Soviet-era variation)'],
+            body: 'The cakes we ate growing up. Medovik comes from the layered “medivnyk” tradition of Western Ukrainian baking, perfected in Lviv’s patisserie schools during the late Habsburg period. Syrnyk is the home version — what every Sunday tasted like at Olena’s grandmother’s table. Kyiv cake is the youngest of the lot, born in 1956 in a Soviet confectionery factory.',
             img: '1578985545062-69928b1d9587',
           },
           {
@@ -3127,7 +3127,7 @@ const AboutPage = ({ setRoute }) => (
         <SecHead num="04" eyebrow="Where the recipes come from" title="A short <em>map</em> of our menu." />
         <div className="heritage">
           {[
-            ['Lviv', 'Medovik, Sernyk, Kyiv cake — the desserts we ate growing up.'],
+            ['Lviv', 'Medovik, Syrnyk, Kyiv cake — the desserts we ate growing up.'],
             ['Vienna', 'Esterházy, Sachertorte, the European torte tradition.'],
             ['Paris', 'Éclairs, macarons, baked tart shells, choux.'],
             ['Toronto', 'Our home — seasonal fruit, local honey, our café.'],
@@ -4018,7 +4018,7 @@ const ArticleView = ({ article, articles, setRoute }) => {
 // Home page — editorial, magazine feel
 const HomePage = ({ setRoute, addToCart, openProduct, tweaks }) => {
   const { items } = DELICIA_DATA;
-  const signature = ['napoleon', 'medovik', 'spartak', 'kyiv', 'pavlova', 'sernyk'].map(id => items.find(i => i.id === id));
+  const signature = ['napoleon', 'medovik', 'spartak', 'kyiv', 'pavlova', 'syrnyk'].map(id => items.find(i => i.id === id));
   const popular = items.filter(i => i.badges?.includes('Popular') || i.badges?.includes('Signature')).slice(0, 6);
 
   return (
@@ -4817,7 +4817,7 @@ const VoicesSlider = () => {
     { quote: 'We ordered three cakes for the office and the whole team went quiet. The Medovik disappeared in under ten minutes.', name: 'Daniel V.', meta: 'Studio Hush · Liberty Village', cake: 'Medovik · corporate' },
     { quote: 'A proper café. They take coffee seriously and they take dessert seriously and somehow the room is still warm and quiet.', name: 'Anya & Mark', meta: 'Bloor West · weekend visit', cake: 'Cappuccino + slice' },
     { quote: 'Asked for a small Spartak for my dad’s birthday with his name on it in Ukrainian. They wrote it perfectly in chocolate.', name: 'Iryna P.', meta: 'Etobicoke · cake pre-order', cake: 'Spartak · custom' },
-    { quote: 'I’m not Ukrainian, I didn’t know what Sernyk was — now it’s the only thing I order on Sundays. Soft, just sweet enough, lovely with espresso.', name: 'Marcus L.', meta: 'High Park · regular', cake: 'Sernyk + espresso' },
+    { quote: 'I’m not Ukrainian, I didn’t know what Syrnyk was — now it’s the only thing I order on Sundays. Soft, just sweet enough, lovely with espresso.', name: 'Marcus L.', meta: 'High Park · regular', cake: 'Syrnyk + espresso' },
     { quote: 'Got the macaron box on a whim and brought it to my sister. She’s a French pastry chef. She said “fine, these are real.” Strongest compliment she has.', name: 'Vera K.', meta: 'Kingsway · pickup', cake: 'Macaron box of 6' },
   ];
 
